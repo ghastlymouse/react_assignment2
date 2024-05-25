@@ -9,12 +9,21 @@ const ExpenseItem = ({ expense }) => {
         navigate(`/detail/${id}`);
     }
 
+    const longToShort = (string) => {
+        const length = string.length;
+        if (length > 50) {
+            return string.substr(0, 50) + "...";
+        } else {
+            return string;
+        }
+    };
+
     return (
         <StDiv onClick={() => handleGoToDetail(id)}>
             <div>
                 <StSpan>
                     {date}<br />
-                    {item} - {description}<br />
+                    {item} - {longToShort(description)}<br />
                 </StSpan>
             </div>
             <div>

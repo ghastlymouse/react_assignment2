@@ -55,13 +55,24 @@ const Router = () => {
                 amount: 75000,
                 description: "자율주행차량 운전주행모드 자동 전환용 인식률 90% 이상의 다중 센서 기반 운전자 상태 인식 및 상황 인식 원천 기술 개발",
             },
+            {
+                id: "7543875437557984359847584764859924",
+                date: "2024-12-11",
+                item: "더미데이터~~~~",
+                amount: 50000,
+                description: "안녕하세요. 박찬호입니다. 고래가 새우를 삼켜버렸다. 고래하니까 생각나는데 제일 미국 LA에 있을 때 유니버셜스튜디오 할리우드에서 봤던 고래가 떠오르네요. 그 고래를 보면서 한국에 대한 그리움 어쩌구 저쩌구 엄청 길다~~~~",
+            },
         ]
     );
+    const [listMonth, setListMonth] = useState();
+
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/'
                     element={<Home
+                        listMonth={listMonth}
+                        setListMonth={setListMonth}
                         expenses={expenses}
                         setExpenses={setExpenses}
                     />} />

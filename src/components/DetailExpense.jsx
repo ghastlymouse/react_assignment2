@@ -69,10 +69,10 @@ const DetailExpense = ({ expenses, setExpenses }) => {
                 <StInput defaultValue={prevExpense.description}
                     name="description"
                     type="text" />
-                <StDetailBtn color="green" type='submit'>수정</StDetailBtn>
+                <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
             </StDetailForm>
-            <StDetailBtn color="red" onClick={handleDelete}>삭제</StDetailBtn>
-            <StDetailBtn color="gray" onClick={handleComeBackHome}>돌아가기</StDetailBtn>
+            <StDetailBtn $color="red" onClick={handleDelete}>삭제</StDetailBtn>
+            <StDetailBtn $color="gray" onClick={handleComeBackHome}>돌아가기</StDetailBtn>
         </StDetailSection>
     )
 }
@@ -84,7 +84,7 @@ const StDetailBtn = styled.button`
     height: 35px;
     border: none;
     border-radius: 4px;
-    background: ${props => props.color || "black"};
+    background-color: ${props => props.$color || "black"};
     color: white;
     cursor: pointer;
     &:hover{
