@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { ExpenseContext } from '../context/ExpenseContext';
+import { addExpense } from '../redux/slices/expense';
 
 const AddExpense = () => {
-    const { setExpenses } = useContext(ExpenseContext);
+    const dispatch = useDispatch();
+
     const handleSubmitForm = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -17,18 +19,14 @@ const AddExpense = () => {
             event.target.reset();
             return alert("제대로 입력하세요!");
         }
-
-        const newExpense = {
+        event.target.reset();
+        dispatch(addExpense({
             id: uuidv4(),
             date,
             item,
-            amount,
+            amount: +amount,
             description,
-        };
-
-        event.target.reset();
-
-        setExpenses(prevExpenses => [...prevExpenses, newExpense]);
+        }));
     }
 
     return (

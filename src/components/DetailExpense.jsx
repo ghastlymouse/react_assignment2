@@ -1,52 +1,39 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ExpenseContext } from '../context/ExpenseContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteExpense, updateExpense } from '../redux/slices/expense';
 
 const DetailExpense = () => {
-    const { expenses, setExpenses } = useContext(ExpenseContext);
+    const { expenses } = useSelector(state => state.expenses);
+    const dispatch = useDispatch();
     const location = useLocation();
-    const id = useRef(location.pathname.slice(8)).current;
-    const prevExpense = expenses.filter(expense => expense.id === id)[0];
+    const currentId = useRef(location.pathname.slice(8)).current;
+    const [prevExpense] = expenses.filter(expense => expense.id === currentId);
 
     const navigate = useNavigate();
-
     const handleComeBackHome = () => {
         navigate("/");
     }
 
     const handleUpdate = (event) => {
         event.preventDefault();
+        const id = currentId;
         const formData = new FormData(event.target);
         const date = formData.get("date");
         const item = formData.get("item");
         const amount = formData.get("amount");
         const description = formData.get("description");
 
-        const updatedExpenses = expenses.map(expense => {
-            if (expense.id === id) {
-                return {
-                    id,
-                    date,
-                    item,
-                    amount,
-                    description,
-                };
-            } else {
-                return expense;
-            }
-        });
-
-        setExpenses(updatedExpenses);
+        dispatch(updateExpense({ id, date, item, amount, description }));
         handleComeBackHome();
     }
 
-    const handleDelete = () => {
+    const handleDelete = (currentId) => {
         const confirmDelete = confirm("정말로 삭제하시겠습니까?");
         if (confirmDelete) {
-            const cleanedExpenses = expenses.filter(expense => expense.id !== id);
-            setExpenses(cleanedExpenses);
-            return handleComeBackHome();
+            dispatch(deleteExpense({ currentId }));
+            handleComeBackHome();
         }
     }
 
@@ -73,7 +60,7 @@ const DetailExpense = () => {
                     type="text" />
                 <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
             </StDetailForm>
-            <StDetailBtn $color="red" onClick={handleDelete}>삭제</StDetailBtn>
+            <StDetailBtn $color="red" onClick={() => handleDelete(currentId)}>삭제</StDetailBtn>
             <StDetailBtn $color="gray" onClick={handleComeBackHome}>돌아가기</StDetailBtn>
         </StDetailSection>
     )

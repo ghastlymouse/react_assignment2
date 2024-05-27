@@ -1,15 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import ExpenseItem from './ExpenseItem'
-import { ExpenseContext } from '../context/ExpenseContext';
+import { useSelector } from 'react-redux';
 
 const ExpenseList = () => {
-    const { expensesList } = useContext(ExpenseContext);
-
+    const { expenses } = useSelector(state => state.expenses);
+    const { selectedMonth } = useSelector(state => state.listMonth);
+    const selectedList = expenses.filter(expense => +expense.date.slice(5, 7) === selectedMonth);
     return (
         <StSection>
             {
-                expensesList.map(expense => {
+                selectedList.map(expense => {
                     return (
                         <ExpenseItem
                             key={expense.id}

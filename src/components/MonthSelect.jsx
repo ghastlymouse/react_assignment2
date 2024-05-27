@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import { ExpenseContext } from '../context/ExpenseContext';
+import { changeMonth } from "../redux/slices/listMonth";
 
 const MonthSelect = () => {
-    const { setListMonth } = useContext(ExpenseContext);
-    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const dispatch = useDispatch();
 
+    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     useEffect(() => {
         const loadedLastSelectMonth = +localStorage.getItem("lastSelect");
         if (!loadedLastSelectMonth) {
-            return setListMonth(1);
+            dispatch(changeMonth(1));
         } else {
-            return setListMonth(loadedLastSelectMonth);
+            dispatch(changeMonth(loadedLastSelectMonth));
         }
     }, []);
 
@@ -20,7 +21,7 @@ const MonthSelect = () => {
     const handleSelectMonth = (month) => {
         localStorage.setItem("lastSelect", month);
         setActiveMonth(month);
-        setListMonth(month);
+        dispatch(changeMonth(month));
     };
 
     return (
