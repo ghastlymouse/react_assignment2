@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { ExpenseContext } from '../context/ExpenseContext';
 
-const AddExpense = ({ setExpenses }) => {
+const AddExpense = () => {
+    const { setExpenses } = useContext(ExpenseContext);
     const handleSubmitForm = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);

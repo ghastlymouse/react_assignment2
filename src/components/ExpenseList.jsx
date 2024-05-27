@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import ExpenseItem from './ExpenseItem'
+import { ExpenseContext } from '../context/ExpenseContext';
 
-const ExpenseList = ({ expenses }) => {
+const ExpenseList = () => {
+    const { expensesList } = useContext(ExpenseContext);
 
     return (
         <StSection>
             {
-                expenses.map(expense => {
+                expensesList.map(expense => {
                     return (
                         <ExpenseItem
                             key={expense.id}

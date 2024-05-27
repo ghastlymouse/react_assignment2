@@ -1,10 +1,9 @@
 import React from 'react'
 import DetailExpense from '../components/DetailExpense'
 
-const Details = ({ expenses, setExpenses }) => {
+const Details = () => {
     return (
-        <DetailExpense expenses={expenses}
-            setExpenses={setExpenses} />
+        <DetailExpense />
     )
 }
 

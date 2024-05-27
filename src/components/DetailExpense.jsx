@@ -1,8 +1,10 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import styled from 'styled-components'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ExpenseContext } from '../context/ExpenseContext';
 
-const DetailExpense = ({ expenses, setExpenses }) => {
+const DetailExpense = () => {
+    const { expenses, setExpenses } = useContext(ExpenseContext);
     const location = useLocation();
     const id = useRef(location.pathname.slice(8)).current;
     const prevExpense = expenses.filter(expense => expense.id === id)[0];

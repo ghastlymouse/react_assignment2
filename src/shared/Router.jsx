@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from '../pages/Home'
 import Details from '../pages/Details'
+import { ExpenseContext } from "../context/ExpenseContext";
 
 const Router = () => {
     const [expenses, setExpenses] = useState(
@@ -65,24 +66,27 @@ const Router = () => {
         ]
     );
     const [listMonth, setListMonth] = useState();
+    const expensesList = expenses.filter(expense => {
+        return +expense.date.slice(5, 7) === listMonth;
+    });
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path='/'
-                    element={<Home
-                        listMonth={listMonth}
-                        setListMonth={setListMonth}
-                        expenses={expenses}
-                        setExpenses={setExpenses}
-                    />} />
-                <Route path='/detail/:id'
-                    element={<Details
-                        expenses={expenses}
-                        setExpenses={setExpenses}
-                    />} />
-            </Routes>
-        </BrowserRouter>
+        <ExpenseContext.Provider value={{
+            expenses,
+            setExpenses,
+            listMonth,
+            setListMonth,
+            expensesList,
+        }}>
+            <BrowserRouter>
+                <Routes>
+
+                    <Route path='/' element={<Home />} />
+                    <Route path='/detail/:id' element={<Details />} />
+
+                </Routes>
+            </BrowserRouter>
+        </ExpenseContext.Provider>
     )
 }
 
