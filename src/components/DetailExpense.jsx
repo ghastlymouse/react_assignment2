@@ -34,6 +34,7 @@ const DetailExpense = () => {
         const confirmDelete = confirm("정말로 삭제하시겠습니까?");
         if (confirmDelete) {
             dispatch(deleteExpense({ currentId }));
+            alert("해당 지출 내역이 삭제되었습니다!");
             handleComeBackHome();
         }
     }
