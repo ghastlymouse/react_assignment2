@@ -26,6 +26,7 @@ const DetailExpense = () => {
         const description = formData.get("description");
 
         dispatch(updateExpense({ id, date, item, amount, description }));
+        alert("수정이 완료되었습니다!");
         handleComeBackHome();
     }
 
@@ -40,21 +41,21 @@ const DetailExpense = () => {
     return (
         <StDetailSection>
             <StDetailForm onSubmit={handleUpdate}>
-                날짜<br />
+                <label htmlFor='date'>날짜</label>
                 <StInput defaultValue={prevExpense.date}
                     name="date"
                     type="date"
                 />
-                항목<br />
+                <label htmlFor='item'>항목</label>
                 <StInput defaultValue={prevExpense.item}
                     name="item"
                     type="text"
                 />
-                금액<br />
+                <label htmlFor='amount'>금액</label>
                 <StInput defaultValue={prevExpense.amount}
                     name="amount"
                     type="number" />
-                내용<br />
+                <label htmlFor='description'>내용</label>
                 <StInput defaultValue={prevExpense.description}
                     name="description"
                     type="text" />
@@ -72,7 +73,10 @@ const StDetailBtn = styled.button`
     width: 10%;
     height: 35px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: inherit;
     background-color: ${props => props.$color || "black"};
     color: white;
     cursor: pointer;
@@ -85,6 +89,8 @@ const StDetailSection = styled.section`
     background-color: white;
     width: 100%;
     padding: 20px;
+    border: 5px solid black;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -103,4 +109,9 @@ const StDetailForm = styled.form`
 const StInput = styled.input`
     width: 80%;
     height: 50px;
+    background-color: #e2dbdb;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: inherit;
 `;
