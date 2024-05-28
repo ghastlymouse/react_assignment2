@@ -23,6 +23,8 @@ const ExpenseItem = ({ expense }) => {
             <div>
                 <StSpan>
                     {date}<br />
+                </StSpan>
+                <StSpan>
                     {item} - {longToShort(description)}<br />
                 </StSpan>
             </div>
@@ -38,7 +40,7 @@ const ExpenseItem = ({ expense }) => {
 export default ExpenseItem
 
 const StDiv = styled.div`
-    width: 100%;
+    width: 95%;
     height: 50px;
     background-color: #d3cccc;
     border: 1px solid black;
@@ -54,6 +56,7 @@ const StDiv = styled.div`
 `;
 
 const StSpan = styled.span`
+    padding: 5px;
     background-color: transparent;
     color: #000000;
 `;
