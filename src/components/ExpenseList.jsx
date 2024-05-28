@@ -7,6 +7,7 @@ const ExpenseList = () => {
     const { expenses } = useSelector(state => state.expenses);
     const { selectedMonth } = useSelector(state => state.listMonth);
     const selectedList = expenses.filter(expense => +expense.date.slice(5, 7) === selectedMonth);
+
     return (
         <StSection>
             {
@@ -36,4 +37,5 @@ const StSection = styled.section`
     padding: 20px;
     border: 5px solid black;
     border-radius: 8px;
+    margin: 10px;
 `;
