@@ -18,13 +18,14 @@ const MonthSelect = () => {
     }, []);
 
     useEffect(() => {
+        localStorage.setItem("lastSelect", selectedMonth);
         setActiveMonth(selectedMonth);
     }, [selectedMonth])
 
     const [activeMonth, setActiveMonth] = useState(loadedLastSelectMonth || 1);
 
     const handleSelectMonth = (month) => {
-        localStorage.setItem("lastSelect", month);
+
         dispatch(changeMonth(month));
     };
 
