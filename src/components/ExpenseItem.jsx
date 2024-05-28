@@ -11,8 +11,8 @@ const ExpenseItem = ({ expense }) => {
 
     const longToShort = (string) => {
         const length = string.length;
-        if (length > 50) {
-            return string.substr(0, 50) + "...";
+        if (length > 60) {
+            return string.substr(0, 60) + "...";
         } else {
             return string;
         }
