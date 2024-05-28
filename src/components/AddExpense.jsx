@@ -29,30 +29,37 @@ const AddExpense = () => {
         }));
     }
 
+    const thisYearFirstDay = `${new Date().getFullYear()}-01-01`;
+    const thisYearLastDay = `${new Date().getFullYear()}-12-31`;
+
     return (
         <StForm onSubmit={handleSubmitForm}>
-            날짜 <input
+            <label htmlFor='date'>날짜</label>
+            <StInput
                 name="date"
                 type="date"
-                max="2024-12-31"
-                min="2024-01-01"
+                min={thisYearFirstDay}
+                max={thisYearLastDay}
                 required />
-            항목 <input
+            <label htmlFor='item'>항목</label>
+            <StInput
                 name="item"
                 type="text"
                 placeholder='지출 항목'
                 required />
-            금액 <input
+            <label htmlFor='amount'>금액</label>
+            <StInput
                 name="amount"
                 type="number"
                 placeholder='지출 금액'
                 required />
-            내용 <input
+            <label htmlFor='description'>내용</label>
+            <StInput
                 name="description"
                 type="text"
                 placeholder='지출 내용'
                 required />
-            <StSubmitBtn type="submit">저장</StSubmitBtn>
+            <StSubmitBtn type="submit">추가</StSubmitBtn>
         </StForm>
     )
 }
@@ -70,15 +77,31 @@ const StForm = styled.form`
     align-items: center;
     gap: 10px;
     padding: 20px;
+    margin: 10px;
 `;
 
 const StSubmitBtn = styled.button`
     border: none;
     border-radius: 4px;
     background-color: blue;
+    padding: 10px 20px;
+    width: 7%;
+    height: 35px;
     color: white;
+    font-family: inherit;
+    font-size: 16px;
     cursor: pointer;
     &:hover{
         filter:brightness(0.8);
     }
+`;
+
+const StInput = styled.input`
+    width: 15%;
+    height: 30px;
+    background-color: #e2dbdb;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: inherit;
 `;
