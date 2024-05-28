@@ -9,7 +9,7 @@ const AddExpense = () => {
     const dispatch = useDispatch();
 
     const [openModal, setOpenModal] = useState(false);
-    const [alertMonth, setAlertMonth] = useState(1);
+    const [alertMessage, setAlertMessage] = useState("");
     const modalBg = useRef();
 
     const handleSubmitForm = (event) => {
@@ -22,7 +22,8 @@ const AddExpense = () => {
 
         if (!item.trim() || !amount.trim() || !description.trim()) {
             event.target.reset();
-            return alert("제대로 입력하세요!");
+            setAlertMessage(`제대로 입력하세요!`);
+            return setOpenModal(true);
         }
         event.target.reset();
         dispatch(addExpense({
@@ -34,7 +35,7 @@ const AddExpense = () => {
         }));
         const selectedMonth = +date.slice(5, 7);
         dispatch(changeMonth(selectedMonth));
-        setAlertMonth(selectedMonth);
+        setAlertMessage(`${selectedMonth}월의 지출 내역에 추가되었습니다!`);
         setOpenModal(true);
     }
 
@@ -49,7 +50,7 @@ const AddExpense = () => {
                 }
             }}>
                 <Modal>
-                    <span>{alertMonth}월의 지출 내역에 추가되었습니다!</span>
+                    <span>{alertMessage}</span>
                     <ModalBtnDiv>
                         <ModalBtn onClick={() => setOpenModal(false)}>확인</ModalBtn>
                     </ModalBtnDiv>
