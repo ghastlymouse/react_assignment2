@@ -130,3 +130,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+@font-face {
+  font-family: "Jua";
+  font-weight: 400;
+  src: url(./fonts/Jua-Regular.ttf) format("truetype");
+}
