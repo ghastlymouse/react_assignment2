@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { addExpense } from '../redux/slices/expense';
+import { changeMonth } from '../redux/slices/listMonth';
 
 const AddExpense = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,9 @@ const AddExpense = () => {
             amount: +amount,
             description,
         }));
+        const selectedMonth = +date.slice(5, 7);
+        alert(`${selectedMonth}월의 지출 내역에 추가되었습니다!`);
+        dispatch(changeMonth(selectedMonth));
     }
 
     const thisYearFirstDay = `${new Date().getFullYear()}-01-01`;
