@@ -7,16 +7,16 @@ const MonthSelect = () => {
     const dispatch = useDispatch();
 
     const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+    const loadedLastSelectMonth = +localStorage.getItem("lastSelect");
+
     useEffect(() => {
-        const loadedLastSelectMonth = +localStorage.getItem("lastSelect");
-        if (!loadedLastSelectMonth) {
-            dispatch(changeMonth(1));
-        } else {
+        if (loadedLastSelectMonth) {
             dispatch(changeMonth(loadedLastSelectMonth));
         }
     }, []);
 
-    const [activeMonth, setActiveMonth] = useState(+localStorage.getItem("lastSelect"));
+    const [activeMonth, setActiveMonth] = useState(loadedLastSelectMonth || 1);
 
     const handleSelectMonth = (month) => {
         localStorage.setItem("lastSelect", month);
@@ -26,17 +26,19 @@ const MonthSelect = () => {
 
     return (
         <StMonthSection>
-            {
-                months.map(month => {
-                    return (
-                        <StMonthBtn key={month}
-                            onClick={() => handleSelectMonth(month)}
-                            $active={activeMonth === month}>
-                            {month}월
-                        </StMonthBtn>
-                    );
-                })
-            }
+            <StDiv>
+                {
+                    months.map(month => {
+                        return (
+                            <StMonthBtn key={month}
+                                onClick={() => handleSelectMonth(month)}
+                                $active={activeMonth === month}>
+                                {month}월
+                            </StMonthBtn>
+                        );
+                    })
+                }
+            </StDiv>
         </StMonthSection>
     )
 }
@@ -48,12 +50,19 @@ const StMonthSection = styled.section`
     background-color: white;
     color: black;
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
     padding: 20px;
     border: 5px solid black;
     border-radius: 8px;
+    margin: 10px;
+`;
+
+const StDiv = styled.div`
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 `;
 
 const StMonthBtn = styled.button`
@@ -61,11 +70,11 @@ const StMonthBtn = styled.button`
     color: ${props => (props.$active ? "white" : "black")};
     border: none;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10%;
+    padding: 10px 20px;
+    width: 15%;
     height: 60px;
+    font-family: inherit;
+    font-size: inherit;
     cursor: pointer;
     &:hover{
         background-color: blue;
