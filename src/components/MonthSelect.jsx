@@ -25,7 +25,6 @@ const MonthSelect = () => {
     const [activeMonth, setActiveMonth] = useState(loadedLastSelectMonth || 1);
 
     const handleSelectMonth = (month) => {
-
         dispatch(changeMonth(month));
     };
 
