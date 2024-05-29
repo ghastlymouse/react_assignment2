@@ -2,6 +2,7 @@ import React from 'react'
 import AddExpense from '../components/AddExpense';
 import ExpenseList from '../components/ExpenseList';
 import MonthSelect from '../components/MonthSelect';
+import ExpenseSummary from '../components/ExpenseSummary';
 
 const Home = () => {
 
@@ -9,6 +10,7 @@ const Home = () => {
         <>
             <AddExpense />
             <MonthSelect />
+            <ExpenseSummary />
             <ExpenseList />
         </>
     )
