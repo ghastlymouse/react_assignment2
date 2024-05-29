@@ -30,7 +30,7 @@ const ExpenseItem = ({ expense }) => {
             </div>
             <div>
                 <StSpan>
-                    {amount}원
+                    {amount.toLocaleString()}원
                 </StSpan>
             </div>
         </StDiv>
