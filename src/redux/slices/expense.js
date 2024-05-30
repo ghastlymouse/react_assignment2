@@ -71,19 +71,21 @@ const expenseSlice = createSlice({
       state.expenses = [...state.expenses, action.payload];
     },
     deleteExpense: (state, action) => {
+      const { currentId } = action.payload;
       state.expenses = state.expenses.filter(
-        (expense) => expense.id !== action.payload.currentId
+        (expense) => expense.id !== currentId
       );
     },
     updateExpense: (state, action) => {
+      const { id, date, item, amount, description } = action.payload;
       state.expenses = state.expenses.map((expense) => {
         if (expense.id === action.payload.id) {
           return {
-            id: action.payload.id,
-            date: action.payload.date,
-            item: action.payload.item,
-            amount: +action.payload.amount,
-            description: action.payload.description,
+            id: id,
+            date: date,
+            item: item,
+            amount: +amount,
+            description: description,
           };
         } else {
           return expense;
@@ -93,6 +95,6 @@ const expenseSlice = createSlice({
   },
 });
 
-export const { addExpense, selectExpenses, deleteExpense, updateExpense } =
+export const { addExpense, deleteExpense, updateExpense } =
   expenseSlice.actions;
 export default expenseSlice.reducer;
