@@ -24,8 +24,8 @@ const AddExpense = () => {
             setAlertMessage(`항목을 제대로 입력하세요!`);
             return setOpenModal(true);
         }
-        if (!amount.trim()) {
-            setAlertMessage(`금액을 제대로 입력하세요!`);
+        if (!amount.trim() || +amount < 0) {
+            setAlertMessage(`유효한 금액을 입력하세요!`);
             return setOpenModal(true);
         }
         if (!description.trim()) {
