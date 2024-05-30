@@ -20,9 +20,16 @@ const AddExpense = () => {
         const amount = formData.get("amount");
         const description = formData.get("description");
 
-        if (!item.trim() || !amount.trim() || !description.trim()) {
-            event.target.reset();
-            setAlertMessage(`제대로 입력하세요!`);
+        if (!item.trim()) {
+            setAlertMessage(`항목을 제대로 입력하세요!`);
+            return setOpenModal(true);
+        }
+        if (!amount.trim()) {
+            setAlertMessage(`금액을 제대로 입력하세요!`);
+            return setOpenModal(true);
+        }
+        if (!description.trim()) {
+            setAlertMessage(`내용을 제대로 입력하세요!`);
             return setOpenModal(true);
         }
         event.target.reset();
@@ -57,31 +64,39 @@ const AddExpense = () => {
                 </Modal>
             </ModalBackground>
             <StForm onSubmit={handleSubmitForm}>
-                <label htmlFor='date'>날짜</label>
-                <StInput
-                    name="date"
-                    type="date"
-                    min={thisYearFirstDay}
-                    max={thisYearLastDay}
-                    required />
-                <label htmlFor='item'>항목</label>
-                <StInput
-                    name="item"
-                    type="text"
-                    placeholder='지출 항목'
-                    required />
-                <label htmlFor='amount'>금액</label>
-                <StInput
-                    name="amount"
-                    type="number"
-                    placeholder='지출 금액'
-                    required />
-                <label htmlFor='description'>내용</label>
-                <StInput
-                    name="description"
-                    type="text"
-                    placeholder='지출 내용'
-                    required />
+                <StDiv>
+                    <label htmlFor='date'>날짜</label>
+                    <StInput
+                        name="date"
+                        type="date"
+                        min={thisYearFirstDay}
+                        max={thisYearLastDay}
+                        required />
+                </StDiv>
+                <StDiv>
+                    <label htmlFor='item'>항목</label>
+                    <StInput
+                        name="item"
+                        type="text"
+                        placeholder='지출 항목'
+                        required />
+                </StDiv>
+                <StDiv>
+                    <label htmlFor='amount'>금액</label>
+                    <StInput
+                        name="amount"
+                        type="number"
+                        placeholder='지출 금액'
+                        required />
+                </StDiv>
+                <StDiv>
+                    <label htmlFor='description'>내용</label>
+                    <StInput
+                        name="description"
+                        type="text"
+                        placeholder='지출 내용'
+                        required />
+                </StDiv>
                 <StSubmitBtn type="submit">추가</StSubmitBtn>
             </StForm>
         </>
@@ -110,7 +125,7 @@ const StSubmitBtn = styled.button`
     background-color: blue;
     padding: 10px 20px;
     width: 7%;
-    height: 35px;
+    height: 40px;
     color: white;
     font-family: inherit;
     font-size: 16px;
@@ -120,8 +135,14 @@ const StSubmitBtn = styled.button`
     }
 `;
 
+const StDiv = styled.div`
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+`;
+
 const StInput = styled.input`
-    width: 15%;
+    width: 90%;
     height: 30px;
     background-color: #e2dbdb;
     border: 1px solid black;
