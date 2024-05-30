@@ -6,7 +6,9 @@ import { deleteExpense, updateExpense } from '../redux/slices/expense';
 
 const DetailExpense = () => {
     const { expenses } = useSelector(state => state.expenses);
-    const [openConfirm, setOpenConfirm] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [isBtnOpen, setIsBtnOpen] = useState(true);
+    const [modalMsg, setModalMsg] = useState("");
     const modalBg = useRef();
 
     const dispatch = useDispatch();
@@ -28,16 +30,24 @@ const DetailExpense = () => {
         const description = formData.get("description");
 
         if (!date.trim()) {
-            return alert("날짜를 제대로 입력해주세요!");
+            setIsBtnOpen(false);
+            setModalMsg("날짜를 제대로 입력해주세요!");
+            return setOpenModal(true);
         }
         if (!item.trim()) {
-            return alert("항목을 제대로 입력해주세요!");
+            setIsBtnOpen(false);
+            setModalMsg("항목을 제대로 입력해주세요!");
+            return setOpenModal(true);
         }
         if (!amount.trim() || +amount < 0) {
-            return alert("유효한 금액을 입력해주세요!");
+            setIsBtnOpen(false);
+            setModalMsg("유효한 금액을 입력해주세요!");
+            return setOpenModal(true);
         }
         if (!description.trim()) {
-            return alert("내용을 제대로 입력해주세요!");
+            setIsBtnOpen(false);
+            setModalMsg("내용을 제대로 입력해주세요!");
+            return setOpenModal(true);
         }
 
         dispatch(updateExpense({ id, date, item, amount, description }));
@@ -51,19 +61,24 @@ const DetailExpense = () => {
 
     return (
         <StDetailSection>
-            <ModalBackground $openConfirm={openConfirm} ref={modalBg} onClick={(e) => {
+            <ModalBackground $openModal={openModal} ref={modalBg} onClick={(e) => {
                 if (e.target === modalBg.current) {
-                    setOpenConfirm(false);
+                    setOpenModal(false);
                 }
             }}>
                 <Modal>
-                    <span>삭제 하시겠습니까?</span>
+                    <span>{modalMsg}</span>
                     <ModalBtnDiv>
                         <ModalBtn onClick={() => {
-                            setOpenConfirm(false);
+                            setOpenModal(false);
+                        }} $isBtnOpen={!isBtnOpen}>확인</ModalBtn>
+                        <ModalBtn onClick={() => {
+                            setOpenModal(false);
                             handleDelete(currentId);
-                        }}>확인</ModalBtn>
-                        <ModalBtn onClick={() => setOpenConfirm(false)} $color="gray">취소</ModalBtn>
+                        }}
+                            $color="red"
+                            $isBtnOpen={isBtnOpen}>삭제</ModalBtn>
+                        <ModalBtn onClick={() => setOpenModal(false)} $color="gray" $isBtnOpen={isBtnOpen}>취소</ModalBtn>
                     </ModalBtnDiv>
                 </Modal>
             </ModalBackground>
@@ -105,7 +120,11 @@ const DetailExpense = () => {
                 </StDiv>
                 <StBtnDiv>
                     <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
-                    <StDetailBtn $color="red" type='button' onClick={() => setOpenConfirm(true)}>삭제</StDetailBtn>
+                    <StDetailBtn $color="red" type='button' onClick={() => {
+                        setModalMsg("정말로 삭제하시겠습니까?")
+                        setOpenModal(true)
+                        setIsBtnOpen(true)
+                    }}>삭제</StDetailBtn>
                     <StDetailBtn $color="gray" type='button' onClick={handleComeBackHome}>돌아가기</StDetailBtn>
                 </StBtnDiv>
 
@@ -176,7 +195,7 @@ const ModalBackground = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    display: ${props => props.$openConfirm ? "flex" : "none"};
+    display: ${props => props.$openModal ? "flex" : "none"};
     justify-content: center;
     background: rgba(0, 0, 0, 0.4);
 `;
@@ -206,6 +225,7 @@ const ModalBtn = styled.button`
     border: none;
     border-radius: 4px;
     background-color: ${props => props.$color || "blue"};
+    display: ${props => (props.$isBtnOpen ? "block" : "none")};
     padding: 10px 20px;
     width: 80px;
     height: 35px;
