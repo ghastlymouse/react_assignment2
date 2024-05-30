@@ -81,11 +81,11 @@ const expenseSlice = createSlice({
       state.expenses = state.expenses.map((expense) => {
         if (expense.id === id) {
           return {
-            id: id,
-            date: date,
-            item: item,
+            id,
+            date,
+            item,
             amount: +amount,
-            description: description,
+            description,
           };
         } else {
           return expense;
