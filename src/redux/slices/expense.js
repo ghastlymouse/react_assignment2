@@ -79,7 +79,7 @@ const expenseSlice = createSlice({
     updateExpense: (state, action) => {
       const { id, date, item, amount, description } = action.payload;
       state.expenses = state.expenses.map((expense) => {
-        if (expense.id === action.payload.id) {
+        if (expense.id === id) {
           return {
             id: id,
             date: date,
